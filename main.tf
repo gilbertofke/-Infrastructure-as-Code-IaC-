@@ -37,10 +37,11 @@ resource "aws_security_group" "sg" {
 }
 
 resource "aws_instance" "vm" {
-  ami           = "ami-0c02fb55956c7d316"  # Ubuntu 20.04 LTS
-  instance_type = "t2.micro"
-  subnet_id     = aws_subnet.subnet.id
-  security_groups = [aws_security_group.sg.name]
+  ami             = "ami-0c02fb55956c7d316"
+  instance_type   = "t2.micro"
+  subnet_id       = aws_subnet.subnet.id  # Ensure subnet ID is correctly referenced
+  vpc_security_group_ids = [aws_security_group.sg.id]  # Use the correct security group ID for VPC
+
   tags = {
     Name = "main-vm"
   }
