@@ -47,11 +47,11 @@ resource "aws_security_group" "sg" {
 
 # Define the EC2 instance in the same subnet and security group
 resource "aws_instance" "vm" {
-  ami               = "ami-08eb150f611ca277f" 
+  ami               = "ami-0866a3c8686eaeeba" 
   instance_type     = "t2.micro"
   subnet_id         = aws_subnet.subnet.id
   vpc_security_group_ids = [aws_security_group.sg.id]
-
+  associate_public_ip_address = true
   tags = {
     Name = "main-vm"
   }
