@@ -12,7 +12,6 @@ This task aims to use Terraform as the Infrastructure as Code (IaC) tool to defi
 - Successful resource deployment
 - Proper handling of dependencies and relationships
 
----
 
 ## Step 1: Set up Terraform Configuration
 
@@ -24,7 +23,6 @@ This task aims to use Terraform as the Infrastructure as Code (IaC) tool to defi
    ![Terraform Configuration](./path/to/screenshot1.png)
    _*Caption*: Initial Terraform configuration file that defines an EC2 instance, VPC, subnet, and security group.
 
----
 
 ## Step 2: Initialize Terraform Workspace
 
@@ -34,7 +32,6 @@ This task aims to use Terraform as the Infrastructure as Code (IaC) tool to defi
    ![Terraform Init](./path/to/screenshot2.png)
    _*Caption*: Initialization process of Terraform in the project directory.
 
----
 
 ## Step 3: Review the Configuration Plan
 
@@ -44,8 +41,6 @@ This task aims to use Terraform as the Infrastructure as Code (IaC) tool to defi
    ![Terraform Plan](./path/to/screenshot3.png)
    _*Caption*: Review of Terraform plan to ensure resources are correctly defined and dependencies are set.
 
----
-
 ## Step 4: Apply the Terraform Plan
 
 1. **Action**: Run `terraform apply` to deploy the resources defined in the configuration.
@@ -54,7 +49,6 @@ This task aims to use Terraform as the Infrastructure as Code (IaC) tool to defi
    ![Terraform Apply](./path/to/screenshot4.png)
    _*Caption*: Execution of the `terraform apply` command that provisions the EC2 instance, VPC, subnet, and security group.
 
----
 
 ## Step 5: Troubleshooting and Resolving Public IP Issue
 
@@ -65,7 +59,6 @@ This task aims to use Terraform as the Infrastructure as Code (IaC) tool to defi
    - The issue was due to the fact that the EC2 instance wasn't explicitly configured to request a public IP. 
    - I updated the `aws_instance` resource in the `main.tf` file to include `associate_public_ip_address = true`.
    
-   ```hcl
    resource "aws_instance" "vm" {
      ami                      = "ami-0c02fb55956c7d316"  # Ubuntu 20.04 LTS
      instance_type            = "t2.micro"
@@ -76,6 +69,7 @@ This task aims to use Terraform as the Infrastructure as Code (IaC) tool to defi
        Name = "main-vm"
      }
    }
+   
 ## Resolution:
 
 After making this change, I ran `terraform apply` again to successfully associate a public IP with the EC2 instance.
@@ -88,7 +82,6 @@ _Caption: Successful display of the EC2 instance’s public IP after updating th
 
 **Action:** Added an output block to the `outputs.tf` file to display the EC2 instance’s public IP.
 
-```hcl
 output "instance_public_ip" {
   value = aws_instance.vm.public_ip
 }
@@ -105,17 +98,11 @@ _Caption: Output in the `outputs.tf` file to display the EC2 instance's public I
 This is a common practice to ensure the environment is cleaned up before reapplying or testing again.
 
 **Command:**
-
-```bash
 terraform destroy
 ### Screenshot:
 _Caption: Use of `terraform destroy` to clean up resources when required, ensuring the system is in a pristine state before redeploying._
 
----
-
 ### Step 8: Redeploy and Verify the Infrastructure
 
 **Action:** After making necessary changes or fixes, I redeployed the infrastructure using:
-
-```bash
 terraform apply
